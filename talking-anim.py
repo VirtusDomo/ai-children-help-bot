@@ -30,7 +30,7 @@ def talking(seconds):
         gameDisplay.blit(faceImg, (0,0))
         pg.display.flip()
         clock.tick(speed)
-    return
+    #return
 
 
 close = time.time() + 20

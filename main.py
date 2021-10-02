@@ -10,6 +10,13 @@ from bs4 import BeautifulSoup
 import urllib.request as urllib2
 import html2text
 
+# for reading in a web page
+from bs4 import BeautifulSoup
+import urllib2
+import html2text
+
+
+
 print('Program started')
 NAME = 'gizmo'
 # sets up listener
@@ -128,6 +135,12 @@ def doTask():
         engine.setProperty('voice', voices[18].id)
         talk("Happy birthday to you, happy birthday to you, happy birthday dear bestie, happy birthday to you")
         engine.setProperty('voice', voices[16].id)
+
+    # Education
+    elif ('Can you explain' or 'Tell more more about' 'What do you mean by') and (
+            'down syndrome') in task:
+        soup = BeautifulSoup(urllib2.urlopen('https://www.cdc.gov/ncbddd/birthdefects/' + 'downsyndrome' + '.html').read())
+        talk(soup)
 
     # Sass
     else:
