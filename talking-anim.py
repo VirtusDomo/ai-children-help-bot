@@ -1,4 +1,5 @@
 import pygame as pg
+import time
 
 pg.init()
 
@@ -9,9 +10,9 @@ red = (255,0,0)
 green = (0,255,0)
 blue = (0,0,255)
 
-eyesImg = pg.image.load('eyes.jpg')
-faceImg = pg.image.load('default-face.jpg')
-talkingImg = pg.image.load('eyes-mouth.jpg')
+eyesImg = pg.image.load('resources/eyes.jpg')
+faceImg = pg.image.load('resources/default-face.jpg')
+talkingImg = pg.image.load('resources/eyes-mouth.jpg')
 
 clock = pg.time.Clock()
 gameDisplay = pg.display.set_mode((537,403))
