@@ -6,7 +6,11 @@ import wikipedia
 import pyjokes
 print('program started')
 NAME = 'alexa'
+# sets up listener
 listener = sr.Recognizer()
+
+# indicates which microphone to use MAKE SURE TO SPECIFY
+mic = sr.Microphone(device_index=2)
 engine = pyttsx3.init()
 engine.say('Hi Friend')
 engine.say('How can I help you')
@@ -19,9 +23,11 @@ def talk(text):
 
 def findTask():
     try:
-        with sr.Microphone() as source:
+        with mic as source:
+            print(sr.Microphone.list_microphone_names())
             print('Im listening :)')
-            listener.adjust_for_ambient_noise(source, duration=5)
+            listener.adjust_for_ambient_noise(source)
+            print('Say something')
             listener.energy_threshold = 4000
             voice = listener.listen(source) # here
             print('i heard a voice')
