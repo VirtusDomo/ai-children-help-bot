@@ -5,6 +5,10 @@ import datetime
 import wikipedia
 import pyjokes
 import pyaudio
+from input import Regimen, docVisits
+from bs4 import BeautifulSoup
+import urllib.request as urllib2
+import html2text
 
 print('Program started')
 NAME = 'gizmo'
@@ -18,9 +22,14 @@ voices = engine.getProperty('voices')
 # IMPORTANT: Voices[12] is only based on Mike's local machine.
 engine.setProperty('voice', voices[18].id)
 #9 calm voice, 25 laugh, 61, 4, 16 robo sing, 18 base, 24 long song
+
 # Greet the user, first time activation
 engine.say('Hi Bestie! How can I help you')
 engine.runAndWait()
+
+# Remind the user
+time = datetime.datetime.now().strftime('%I:%M %p')
+engine.say('The time is' + time + ". Don't forget to take your medication!")
 
 # Speaks whatever text is passed into the function
 def talk(text):
@@ -82,8 +91,12 @@ def doTask():
         print(info)
         talk(info)
 
+    # Appointments
+    elif 'I forgot my next appointment' in task:
+        talk('Not to worry. You are scheduled to see Dr. Chen on December 2nd. That is in a month.')
+
     # Emotional support ( Do you like me?)
-    elif 'do you like me' in task:
+    elif 'Do you like me' in task:
         talk('You are my best friend')
 
     elif "I'm scared" in task:
@@ -98,9 +111,22 @@ def doTask():
     elif 'joke' in task:
         talk(pyjokes.get_joke())
 
-    elif "birthday" in task:
+    # Education
+    elif ('Can you explain' or 'Tell more more about' or 'What do you mean by' or
+            'down syndrome') in task:
+        soup = BeautifulSoup(urllib2.urlopen('https://www.cdc.gov/ncbddd/birthdefects/' + 'downsyndrome' + '.html').read())
+        talk(soup)
+    
+    elif "medicine" in task:
+        talk (Regimen)
+    
+    elif "doctor visit" in task:
+        talk (docVisits)
+        
+    # Birthday
+    elif "It's my birthday" in task:
         engine.setProperty('voice', voices[18].id)
-        talk("Happy birthday to you, happy birthday to you, happy birthday dear bestie, happy birthday  to you")
+        talk("Happy birthday to you, happy birthday to you, happy birthday dear bestie, happy birthday to you")
         engine.setProperty('voice', voices[16].id)
 
     # Sass
