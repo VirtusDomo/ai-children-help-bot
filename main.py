@@ -4,10 +4,6 @@ import pywhatkit
 import datetime
 import wikipedia
 import pyjokes
-<<<<<<< HEAD
-print('program started')
-NAME = 'alexa'
-=======
 import pyaudio
 from input import Regimen, docVisits
 from bs4 import BeautifulSoup
@@ -16,16 +12,11 @@ import html2text
 
 print('Program started')
 NAME = 'gizmo'
->>>>>>> d6e81b6c1ec194b0793e8cbd8b1d2274f1f0ba73
 # sets up listener
 listener = sr.Recognizer()
 
 # indicates which microphone to use MAKE SURE TO SPECIFY
-<<<<<<< HEAD
-mic = sr.Microphone(device_index=2)
-=======
 mic = sr.Microphone(device_index = 0)
->>>>>>> d6e81b6c1ec194b0793e8cbd8b1d2274f1f0ba73
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 # IMPORTANT: Voices[12] is only based on Mike's local machine.
@@ -63,15 +54,10 @@ def findTask():
             command = listener.recognize_google(voice)
             print('i heard a command')
             command = command.lower()
-<<<<<<< HEAD
-            if 'alexa' in command:
-                command = command.replace('alexa', '')
-=======
 
             # Listens for its name, if the name is called, the command will execute
             if NAME in command:
                 command = command.replace(NAME, '')
->>>>>>> d6e81b6c1ec194b0793e8cbd8b1d2274f1f0ba73
                 print(command)
 
             # If Program cannot hear anything
@@ -96,13 +82,9 @@ def doTask():
     # Reports time
     elif 'time' in task:
         time = datetime.datetime.now().strftime('%I:%M %p')
-<<<<<<< HEAD
-        talk('HI! the time is ' + time)
-=======
         talk('Hi bestie! the time is ' + time)
 
     # Defines or describes Wikipedia entry
->>>>>>> d6e81b6c1ec194b0793e8cbd8b1d2274f1f0ba73
     elif 'what is ' in task:
         thing = task.replace('what is', '')
         info = wikipedia.summary(thing,2)
@@ -116,8 +98,6 @@ def doTask():
     # Emotional support ( Do you like me?)
     elif 'Do you like me' in task:
         talk('You are my best friend')
-<<<<<<< HEAD
-=======
 
     elif "I'm scared" in task:
         talk('Everything will be okay. We are all here for you.')
@@ -128,7 +108,6 @@ def doTask():
         pass
 
     # Tells a joke
->>>>>>> d6e81b6c1ec194b0793e8cbd8b1d2274f1f0ba73
     elif 'joke' in task:
         talk(pyjokes.get_joke())
 
