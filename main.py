@@ -4,13 +4,15 @@ import pywhatkit
 import datetime
 import wikipedia
 import pyjokes
+import pyaudio
+
 print('program started')
 NAME = 'alexa'
 # sets up listener
 listener = sr.Recognizer()
 
 # indicates which microphone to use MAKE SURE TO SPECIFY
-mic = sr.Microphone(device_index=2)
+mic = sr.Microphone(device_index=0)
 engine = pyttsx3.init()
 engine.say('Hi Friend')
 engine.say('How can I help you')
@@ -34,8 +36,8 @@ def findTask():
             command = listener.recognize_google(voice)
             print('i heard a command')
             command = command.lower()
-            if 'alexa' in command:
-                command = command.replace('alexa', '')
+            if 'doctor gizmo' in command:
+                command = command.replace('doctor gizmo', '')
                 print(command)
             else:
                 print("nothing heard")
@@ -53,7 +55,7 @@ def doTask():
         pywhatkit.playonyt(song)
     elif 'time' in task:
         time = datetime.datetime.now().strftime('%I:%M %p')
-        talk('HI! the time is ' + time)
+        talk('Hi bestie! the time is ' + time)
     elif 'what is ' in task:
         thing = task.replace('what is', '')
         info = wikipedia.summary(thing,2)
@@ -61,10 +63,13 @@ def doTask():
         talk(info)
     elif 'do you like me' in task:
         talk('You are my best friend')
+    elif 'shut up' in task:
+        talk('Okay meanie. I will go now. Goodbye.')
+        pass
     elif 'joke' in task:
         talk(pyjokes.get_joke())
     else:
-        talk('Sorry could you repeat that')
+        talk('Sorry bestie not that smart')
 
 while True:
     doTask()
