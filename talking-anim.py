@@ -1,14 +1,13 @@
 import pygame as pg
 import time
 
-pg.init()
-
+pg.init
 black = (0,0,0)
 white = (255,255,255)
 
-eyesImg = pg.image.load('eyes.jpg')
-faceImg = pg.image.load('default-face.jpg')
-talkingImg = pg.image.load('eyes-mouth.jpg')
+eyesImg = pg.image.load('resources/eyes.jpg')
+faceImg = pg.image.load('resources/default-face.jpg')
+talkingImg = pg.image.load('resources/eyes-mouth.jpg')
 
 clock = pg.time.Clock()
 gameDisplay = pg.display.set_mode((537,403))
@@ -22,7 +21,7 @@ def talking(seconds):
         gameDisplay.blit(faceImg, (0,0))
         pg.display.flip()
         clock.tick(4)
-    return
+    #return
 
 
 close = time.time() + 60
