@@ -19,6 +19,10 @@ voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
 engine.say('Hi Bestie')
 engine.say('How can I help you')
+
+# Reminder the user
+time = datetime.datetime.now().strftime('%I:%M %p')
+engine.say('How can I help you')
 engine.runAndWait()
 
 
