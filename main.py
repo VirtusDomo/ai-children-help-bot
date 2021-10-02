@@ -4,13 +4,23 @@ import pywhatkit
 import datetime
 import wikipedia
 import pyjokes
+import pyaudio
+
 print('program started')
-NAME = 'alexa'
+NAME = 'gizmo'
+# sets up listener
 listener = sr.Recognizer()
+
+# indicates which microphone to use MAKE SURE TO SPECIFY
+mic = sr.Microphone(device_index=0)
 engine = pyttsx3.init()
-engine.say('Hi Friend')
+#engine.setProperty('age')
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[0].id)
+engine.say('Hi Bestie')
 engine.say('How can I help you')
 engine.runAndWait()
+
 
 
 def talk(text):
@@ -19,17 +29,25 @@ def talk(text):
 
 def findTask():
     try:
-        with sr.Microphone() as source:
+        with mic as source:
+            print(sr.Microphone.list_microphone_names())
             print('Im listening :)')
-            listener.adjust_for_ambient_noise(source, duration=5)
+            listener.adjust_for_ambient_noise(source)
+            print('Say something')
             listener.energy_threshold = 4000
+
+            # Hears a voice
             voice = listener.listen(source) # here
             print('i heard a voice')
+
+            # Recognizes the voice
             command = listener.recognize_google(voice)
             print('i heard a command')
             command = command.lower()
-            if 'alexa' in command:
-                command = command.replace('alexa', '')
+
+            # Listens for its name, if the name is called, the command will execute
+            if NAME in command:
+                command = command.replace(NAME, '')
                 print(command)
             else:
                 print("nothing heard")
@@ -38,6 +56,7 @@ def findTask():
         pass
     return command
 
+# Performs the command accordingly
 def doTask():
     task = findTask()
     print(task)
@@ -47,7 +66,7 @@ def doTask():
         pywhatkit.playonyt(song)
     elif 'time' in task:
         time = datetime.datetime.now().strftime('%I:%M %p')
-        talk('HI! the time is ' + time)
+        talk('Hi bestie! the time is ' + time)
     elif 'what is ' in task:
         thing = task.replace('what is', '')
         info = wikipedia.summary(thing,2)
@@ -55,10 +74,13 @@ def doTask():
         talk(info)
     elif 'do you like me' in task:
         talk('You are my best friend')
+    elif 'shut up' in task:
+        talk('Okay meanie. I will go now. Goodbye.')
+        pass
     elif 'joke' in task:
         talk(pyjokes.get_joke())
     else:
-        talk('Sorry could you repeat that')
+        talk('Sorry bestie not that smart')
 
 while True:
     doTask()
